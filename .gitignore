@@ -1,7 +1,8 @@
 bin/
 obj/
 plan/
+*.xml
 PersonalBudget.*
 !PersonalBudget.cbp
-*.xml
+
 
