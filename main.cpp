@@ -12,7 +12,7 @@ int main()
 {
     char menuChoice;
 
-    PersonalBudget personalBudget("Users.xml");//, "Incomes.xml", "Expenses.xml");
+    PersonalBudget personalBudget("Users.xml", "Incomes.xml"); //"Expenses.xml");
     personalBudget.displayAllUsers();
     while(true){
         if(personalBudget.isUserLogged() == false)

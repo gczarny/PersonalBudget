@@ -13,7 +13,7 @@ void Incomes::setUserId(int newUserId)
     userId = newUserId;
 }
 
-void Incomes::setDate(string newDate)
+void Incomes::setDate(int newDate)
 {
     date = newDate;
 }

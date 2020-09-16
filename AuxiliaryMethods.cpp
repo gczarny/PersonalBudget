@@ -11,7 +11,7 @@ string AuxiliaryMethods::konwerjsaIntNaString(int liczba)
     return str;
 }
 
-string AuxiliaryMethods::readLine()
+string AuxiliaryMethods::getLine()
 {
     cin.clear();
     cin.sync();
@@ -67,23 +67,23 @@ int AuxiliaryMethods::wczytajLiczbeCalkowita()
     return liczba;
 }
 
-char AuxiliaryMethods::wczytajZnak()
+char AuxiliaryMethods::getCharacter()
 {
-    string wejscie = "";
-    char znak  = {0};
+    string input = "";
+    char character  = {0};
 
     while (true)
     {
-        getline(cin, wejscie);
+        getline(cin, input);
 
-        if (wejscie.length() == 1)
+        if (input.length() == 1)
         {
-            znak = wejscie[0];
+            character = input[0];
             break;
         }
         cout << "To nie jest pojedynczy znak. Wpisz ponownie." << endl;
     }
-    return znak;
+    return character;
 }
 
 char AuxiliaryMethods::wybierzOpcjeZMenuEdycja()
@@ -103,4 +103,16 @@ char AuxiliaryMethods::wybierzOpcjeZMenuEdycja()
     wybor = wczytajZnak();
 
     return wybor;
+}
+
+string AuxiliaryMethods::removeChar(string str, char c)
+{
+    string result;
+    for (size_t i = 0; i < str.size(); i++)
+    {
+        char currentChar = str[i];
+        if (currentChar != c)
+        result += currentChar;
+    }
+    return result;
 }

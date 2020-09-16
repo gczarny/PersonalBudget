@@ -16,7 +16,7 @@ bool UsersFile::isFileEmpty(fstream &xmlFile)
 void UsersFile::writeUserToFile(User user)
 {
     CMarkup xml;
-    bool fileExists = xml.Load( "users.xml");
+    bool fileExists = xml.Load(FILENAME_WITH_USERS);
 
     if (!fileExists)
     {
@@ -43,7 +43,7 @@ vector<User>  UsersFile::readUsersFromFile()
     User user;
     vector<User> users;
 
-    xml.Load( "users.xml" );
+    xml.Load(FILENAME_WITH_USERS);
     xml.FindElem();
     xml.IntoElem();
     while(xml.FindElem("User"))
@@ -70,7 +70,7 @@ void UsersFile::editUserInFile(User user, int loggedUserId)
 {
     CMarkup xml;
 
-    xml.Load( "users.xml" );
+    xml.Load(FILENAME_WITH_USERS);
     xml.FindElem();
     xml.IntoElem();
     while(xml.FindElem("User"))
