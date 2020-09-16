@@ -3,5 +3,5 @@ obj/
 plan/
 PersonalBudget.*
 !PersonalBudget.cbp
-Users.txt
+*.xml
 
