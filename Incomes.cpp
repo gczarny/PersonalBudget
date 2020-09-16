@@ -3,6 +3,16 @@
 
 using namespace std;
 
+void Incomes::setIncomeId(int newIncomeId)
+{
+    incomeId = newIncomeId;
+}
+
+void Incomes::setUserId(int newUserId)
+{
+    userId = newUserId;
+}
+
 void Incomes::setDate(string newDate)
 {
     date = newDate;
@@ -16,6 +26,16 @@ void Incomes::setItem(string newItem)
 void Incomes::setAmount(string newAmount)
 {
     amount = newAmount;
+}
+
+int Incomes::getIncomeId()
+{
+    return incomeId;
+}
+
+int Incomes::getUserId()
+{
+    return userId;
 }
 
 string Incomes::getDate()
