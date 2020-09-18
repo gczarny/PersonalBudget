@@ -8,18 +8,20 @@
 #include <iomanip>
 #include <stdlib.h>
 #include <algorithm>
-#include <AuxiliaryMethods.h>
+#include "AuxiliaryMethods.h"
 
 using namespace std;
 
 class DateManager
 {
 public:
+    static bool extractDateAndCHeckIfValid(const string& s, int& d, int& m, int& y);
     static string checkActualDate(const string& s, int& d, int& m, int& y);
     static bool extractDateAndCHeckIfValid();
     static bool checkIfDateFormatAndYearAreValid(string date);
     static int convertStringDateToIntegerDate(string date);
     static string getActualDateInStringFormat();
+    static string convertIntDateToStringWithHyphens(int date);
 
 };
 

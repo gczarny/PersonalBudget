@@ -19,9 +19,9 @@ class IncomesManager
     vector <Incomes> incomes;
     IncomesFile incomesFile;
 
-    Incomes setIncomeData(char dateChoice)
-    //void wyswietlDaneAdresata(Adresat adresat);
-    //int podajIdWybranegoAdresata();
+    Incomes setIncomeData(char dateChoice);
+    void displayIncomeData(Incomes income);
+    void displayAllIncomes();
 
 
 public:

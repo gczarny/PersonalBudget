@@ -10,7 +10,7 @@ using namespace std;
 class AuxiliaryMethods
 {
 public:
-    static string konwerjsaIntNaString(int liczba);
+    static string convertIntToString(int number);
     static string getLine();
     static int konwersjaStringNaInt(string liczba);
     static string pobierzLiczbe(string tekst, int pozycjaZnaku);
@@ -18,7 +18,7 @@ public:
     static int wczytajLiczbeCalkowita();
     static char getCharacter();
     static char wybierzOpcjeZMenuEdycja();
-    string removeChar(string str, char c);
+    static string removeChar(string str, char c);
 };
 
 #endif

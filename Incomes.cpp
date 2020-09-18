@@ -38,7 +38,7 @@ int Incomes::getUserId()
     return userId;
 }
 
-string Incomes::getDate()
+int Incomes::getDate()
 {
     return date;
 }

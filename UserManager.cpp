@@ -87,7 +87,7 @@ int UserManager::userLogging()
 {
     string login = "", password = "";
     cout << endl << "Podaj login: ";
-    login = AuxiliaryMethods::readLine();
+    login = AuxiliaryMethods::getLine();
 
     for(int i = 0; i < users.size(); i++)
     {
@@ -96,7 +96,7 @@ int UserManager::userLogging()
             for(int permittedTries = 3; permittedTries > 0; permittedTries--)
             {
                 cout << "Podaj haslo. Pozostalo prob: " << permittedTries << ": ";
-                password = AuxiliaryMethods::readLine();
+                password = AuxiliaryMethods::getLine();
 
                 if(users[i].getPassword() == password)
                 {
@@ -121,7 +121,7 @@ void UserManager::editPassword()
     system("cls");
     string newPassowrd = "";
     cout << "Podaj nowe haslo (haslo powinno skladac sie przynajmniej z 5 dowolnych znakow lub liczb): ";
-    newPassowrd = AuxiliaryMethods::readLine();
+    newPassowrd = AuxiliaryMethods::getLine();
 
     if(isUserLogged())
     {

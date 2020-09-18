@@ -7,16 +7,18 @@ void IncomesManager::addIncome()
 {
     Incomes income;
     char dateChoice;
-    int d,m,y;
+    int d, m, y;
 
     system("cls");
     cout << " >>> DODAWANIE NOWEGO PRZYCHODU <<<" << endl << endl;
+    cout << "Id ostatniego przychodu: " << incomesFile.getLastIncomeId() << endl;
+    displayAllIncomes();
     cout << "Czy chcesz dodac przychod z dnia dzisiejszego? <t/n> ";
-    dateChoice = AuxiliaryMethods::getCharacter()
+    dateChoice = AuxiliaryMethods::getCharacter();
 
     if(dateChoice == 't')
     {
-        income.setDate(convertStringDateToIntegerDate(getActualDateInStringFormat()));
+        income.setDate(DateManager::convertStringDateToIntegerDate(DateManager::getActualDateInStringFormat()));
     }
     else
     {
@@ -27,9 +29,9 @@ void IncomesManager::addIncome()
             cout << "Wprowadzono niepoprawna date (poprawny format: rrrr-mm-dd)";
             date = AuxiliaryMethods::getLine();
         }
-        income.setDate(convertStringDateToIntegerDate(date));
+        income.setDate(DateManager::convertStringDateToIntegerDate(date));
     }
-    income.setIncomeId(plikZAdresatami.pobierzIdOstatniegoAdresata() + 1);
+    income.setIncomeId(incomesFile.getLastIncomeId() + 1);
     income.setUserId(LOGGED_USER_ID);
     cout << "Okresl, czego dotyczy przychod (np. lokata, wynagrodzenie, etc.): ";
     income.setItem(AuxiliaryMethods::getLine());
@@ -38,34 +40,32 @@ void IncomesManager::addIncome()
 
     incomes.push_back(income);
 
-    if(plikZAdresatami.dopiszAdresataDoPliku(adresat))
-        cout << "Nowy przychod zostal dodany" << endl;
-    else
-        cout << "Blad. Nie udalo sie dodac przychodu do pliku" << endl;
+    incomesFile.writeIncomeToFile(income);
+    cout << "Nowy przychod zostal dodany" << endl;
+
     system("pause");
 }
 
 
-/*
-void AdresatManager::wyswietlDaneAdresata(Adresat adresat)
+
+void IncomesManager::displayIncomeData(Incomes income)
 {
-    cout << endl << "Id:         " << adresat.pobierzId() << endl;
-    cout << "Imie:               " << adresat.pobierzImie() << endl;
-    cout << "Nazwisko:           " << adresat.pobierzNazwisko() << endl;
-    cout << "Numer telefonu:     " << adresat.pobierzNumerTelefonu() << endl;
-    cout << "Email:              " << adresat.pobierzEmail() << endl;
-    cout << "Adres:              " << adresat.pobierzAdres() << endl;
+    cout << endl << "Id:         " << income.getIncomeId() << endl;
+    cout << "Imie:               " << income.getUserId() << endl;
+    cout << "Nazwisko:           " << income.getDate() << endl;
+    cout << "Numer telefonu:     " << income.getItem() << endl;
+    cout << "Email:              " << income.getAmount() << endl;
 }
 
-void AdresatManager::wyswietlWszystkichAdresatow()
+void IncomesManager::displayAllIncomes()
 {
     system("cls");
-    if (!adresaci.empty())
+    if (!incomes.empty())
     {
-        cout << "             >>> ADRESACI <<<" << endl;
+        cout << "             >>> INCOMES <<<" << endl;
         cout << "-----------------------------------------------" << endl;
-        for (vector <Adresat> :: iterator itr = adresaci.begin(); itr != adresaci.end(); itr++)
-            wyswietlDaneAdresata(*itr);
+        for (vector <Incomes> :: iterator itr = incomes.begin(); itr != incomes.end(); itr++)
+            displayIncomeData(*itr);
         cout << endl;
     }
     else
@@ -74,4 +74,4 @@ void AdresatManager::wyswietlWszystkichAdresatow()
     }
     system("pause");
 }
-*/
+

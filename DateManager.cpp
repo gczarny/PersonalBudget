@@ -4,7 +4,8 @@
 using namespace std;
 
 
-bool DateManager::extractDateAndCHeckIfValid(const string& s, int& d, int& m, int& y){
+bool DateManager::extractDateAndCHeckIfValid(const string& s, int& d, int& m, int& y)
+{
     istringstream is(s);
     char delimiter;
 
@@ -44,13 +45,13 @@ string DateManager::getActualDateInStringFormat()
     auto tm = *localtime(&t);
 
     ostringstream oss;
-    oss << put_time(&tm, "%d-%m-%Y %H-%M-%S");
+    oss << put_time(&tm, "%Y-%m-%d");
     auto str = oss.str();
 
     return str;
 }
 
-int convertStringDateToIntegerDate(string date)
+int DateManager::convertStringDateToIntegerDate(string date)
 {
     string dateWithoutHyphens;
     int dateAsInteger;
@@ -59,4 +60,13 @@ int convertStringDateToIntegerDate(string date)
     dateAsInteger = stoi(dateWithoutHyphens);
 
     return dateAsInteger;
+}
+
+string DateManager::convertIntDateToStringWithHyphens(int date)
+{
+    string DateWithHyphens = AuxiliaryMethods::convertIntToString(date);
+    DateWithHyphens.insert(4, "-");
+    DateWithHyphens.insert(7, "-");
+
+    return DateWithHyphens;
 }

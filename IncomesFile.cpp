@@ -3,37 +3,13 @@
 
 using namespace std;
 
-/*
-int PlikZAdresatami::pobierzIdUzytkownikaZDanychOddzielonychPionowymiKreskami(string daneJednegoAdresataOddzielonePionowymiKreskami)
-{
-    int pozycjaRozpoczeciaIdUzytkownika = daneJednegoAdresataOddzielonePionowymiKreskami.find_first_of('|') + 1;
-    int idUzytkownika = MetodyPomocnicze::konwersjaStringNaInt(MetodyPomocnicze::pobierzLiczbe(daneJednegoAdresataOddzielonePionowymiKreskami, pozycjaRozpoczeciaIdUzytkownika));
-
-    return idUzytkownika;
-}
-
-int PlikZAdresatami::pobierzIdAdresataZDanychOddzielonychPionowymiKreskami(string daneJednegoAdresataOddzielonePionowymiKreskami)
-{
-    int pozycjaRozpoczeciaIdAdresata = 0;
-    int idAdresata = MetodyPomocnicze::konwersjaStringNaInt(MetodyPomocnicze::pobierzLiczbe(daneJednegoAdresataOddzielonePionowymiKreskami, pozycjaRozpoczeciaIdAdresata));
-    return idAdresata;
-}
-
-bool PlikZAdresatami::czyPlikJestPusty(fstream &plikTekstowy)
-{
-    plikTekstowy.seekg(0, ios::end);
-    if (plikTekstowy.tellg() == 0)
-        return true;
-    else
-        return false;
-}
-*/
 vector<Incomes> IncomesFile::readIncomesOfLoggedUserFromFile(int loggedUserId)
 {
     vector<Incomes> incomes;
     Incomes income;
     CMarkup xml;
     int date, userId;
+    string dateString;
 
     xml.Load(FILENAME_WITH_INCOMES);
     xml.FindElem();
@@ -42,14 +18,15 @@ vector<Incomes> IncomesFile::readIncomesOfLoggedUserFromFile(int loggedUserId)
     {
         xml.IntoElem();
         xml.FindElem( "incomeId" );
-        income.setIncomeId(atoi(MCD_2PCSZ(xml.GetData())));
+        lastIncomeId = atoi(MCD_2PCSZ(xml.GetData()));
         xml.FindElem( "userId" );
-        userId = xml.GetData();
+        userId = atoi(MCD_2PCSZ(xml.GetData()));
         if(userId == loggedUserId)
         {
+            income.setIncomeId(lastIncomeId);
             income.setUserId(userId);
             xml.FindElem("date");
-            date = DateManager::convertStringDateToIntegerDate(DateManager::getActualDateInStringFormat(xml.GetData()));
+            date = DateManager::convertStringDateToIntegerDate(xml.GetData());
             income.setDate(date);
             xml.FindElem("item");
             income.setItem(xml.GetData());
@@ -58,12 +35,14 @@ vector<Incomes> IncomesFile::readIncomesOfLoggedUserFromFile(int loggedUserId)
             incomes.push_back(income);
             xml.OutOfElem();
         }
+        else
+            xml.OutOfElem();
     }
-    return adresaci;
+    return incomes;
 
 }
 
-bool PlikZAdresatami::writeIncomeToFile(Incomes income)
+void IncomesFile::writeIncomeToFile(Incomes income)
 {
     CMarkup xml;
     bool fileExists = xml.Load(FILENAME_WITH_INCOMES);
@@ -78,36 +57,16 @@ bool PlikZAdresatami::writeIncomeToFile(Incomes income)
     xml.IntoElem();
     xml.AddElem("Income");
     xml.IntoElem();
-    xml.AddElem("incomeId", user.getUserId());
-    xml.AddElem("userId", user.getLogin());
-    xml.AddElem("Date", user.getPassword());
-    xml.AddElem("Item", user.getName());
-    xml.AddElem("Amount", user.getSurname());
+    xml.AddElem("incomeId", income.getIncomeId());
+    xml.AddElem("userId", income.getUserId());
+    xml.AddElem("date", DateManager::convertIntDateToStringWithHyphens(income.getDate()));
+    xml.AddElem("item", income.getItem());
+    xml.AddElem("amount", income.getAmount());
 
     xml.Save(FILENAME_WITH_INCOMES);
-
-    string liniaZDanymiAdresata = "";
-    fstream plikTekstowy;
-    plikTekstowy.open(NAZWA_PLIKU_Z_ADRESATAMI.c_str(), ios::out | ios::app);
-
-    if (plikTekstowy.good() == true)
-    {
-        liniaZDanymiAdresata = zamienDaneAdresataNaLinieZDanymiOddzielonymiPionowymiKreskami(adresat);
-
-        if (czyPlikJestPusty(plikTekstowy) == true)
-            plikTekstowy << liniaZDanymiAdresata;
-
-        else
-            plikTekstowy << endl << liniaZDanymiAdresata;
-        idOstatniegoAdresata++;
-        plikTekstowy.close();
-        return true;
-    }
-    return false;
 }
 
-int PlikZAdresatami::pobierzIdOstatniegoAdresata()
+int IncomesFile::getLastIncomeId()
 {
-    return idOstatniegoAdresata;
+    return lastIncomeId;
 }
-

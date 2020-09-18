@@ -3,10 +3,10 @@
 
 using namespace std;
 
-string AuxiliaryMethods::konwerjsaIntNaString(int liczba)
+string AuxiliaryMethods::convertIntToString(int number)
 {
     ostringstream ss;
-    ss << liczba;
+    ss << number;
     string str = ss.str();
     return str;
 }
@@ -85,7 +85,7 @@ char AuxiliaryMethods::getCharacter()
     }
     return character;
 }
-
+/*
 char AuxiliaryMethods::wybierzOpcjeZMenuEdycja()
 {
     char wybor;
@@ -104,7 +104,7 @@ char AuxiliaryMethods::wybierzOpcjeZMenuEdycja()
 
     return wybor;
 }
-
+*/
 string AuxiliaryMethods::removeChar(string str, char c)
 {
     string result;
