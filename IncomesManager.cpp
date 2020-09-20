@@ -7,29 +7,20 @@ void IncomesManager::addIncome()
 {
     Incomes income;
     char dateChoice;
-    int d, m, y;
 
     system("cls");
     cout << " >>> DODAWANIE NOWEGO PRZYCHODU <<<" << endl << endl;
     cout << "Id ostatniego przychodu: " << incomesFile.getLastIncomeId() << endl;
-    displayAllIncomes();
     cout << "Czy chcesz dodac przychod z dnia dzisiejszego? <t/n> ";
-    dateChoice = AuxiliaryMethods::getCharacter();
+    dateChoice = AuxiliaryMethods::chooseOptionBeetwenTwoChars();
 
     if(dateChoice == 't')
-    {
         income.setDate(DateManager::convertStringDateToIntegerDate(DateManager::getActualDateInStringFormat()));
-    }
+
     else
     {
-        cout << "Wprowadz date w formacie rrrr-mm-dd: ";
-        string date = AuxiliaryMethods::getLine();
-        while(DateManager::checkIfDateFormatAndYearAreValid(date) == false || DateManager::extractDateAndCHeckIfValid(date, d, m, y) == false)
-        {
-            cout << "Wprowadzono niepoprawna date (poprawny format: rrrr-mm-dd)";
-            date = AuxiliaryMethods::getLine();
-        }
-        income.setDate(DateManager::convertStringDateToIntegerDate(date));
+        //string date = DateManager::getDateFromUser();
+        income.setDate(DateManager::convertStringDateToIntegerDate(DateManager::getDateFromUser()));
     }
     income.setIncomeId(incomesFile.getLastIncomeId() + 1);
     income.setUserId(LOGGED_USER_ID);
@@ -51,10 +42,10 @@ void IncomesManager::addIncome()
 void IncomesManager::displayIncomeData(Incomes income)
 {
     cout << endl << "Id:         " << income.getIncomeId() << endl;
-    cout << "Imie:               " << income.getUserId() << endl;
-    cout << "Nazwisko:           " << income.getDate() << endl;
-    cout << "Numer telefonu:     " << income.getItem() << endl;
-    cout << "Email:              " << income.getAmount() << endl;
+    cout << "Id Uzytkownika:     " << income.getUserId() << endl;
+    cout << "Data:               " << income.getDate() << endl;
+    cout << "Opis:               " << income.getItem() << endl;
+    cout << "Kwota:              " << income.getAmount() << endl;
 }
 
 void IncomesManager::displayAllIncomes()
@@ -62,7 +53,7 @@ void IncomesManager::displayAllIncomes()
     system("cls");
     if (!incomes.empty())
     {
-        cout << "             >>> INCOMES <<<" << endl;
+        cout << "             >>> PRZYCHODY <<<" << endl;
         cout << "-----------------------------------------------" << endl;
         for (vector <Incomes> :: iterator itr = incomes.begin(); itr != incomes.end(); itr++)
             displayIncomeData(*itr);
@@ -70,8 +61,31 @@ void IncomesManager::displayAllIncomes()
     }
     else
     {
-        cout << endl << "Ksiazka adresowa jest pusta." << endl << endl;
+        cout << endl << "Brak zapisanych przychodow" << endl << endl;
     }
     system("pause");
+}
+
+void IncomesManager::balanceOfCurrentMonth()
+{
+    sortIncomesVectorByDateDescending();
+    BalanceManager::displayCurrentMonthBalance(incomes);
+}
+
+void IncomesManager::balanceOfPreviousMonth()
+{
+    sortIncomesVectorByDateDescending();
+    BalanceManager::displayPreviousMonthBalance(incomes);
+}
+
+void IncomesManager::balanceOfSelectedPeriod()
+{
+    sortIncomesVectorByDateDescending();
+    BalanceManager::displaySelectedPeriodBalance(incomes);
+}
+
+void IncomesManager::sortIncomesVectorByDateDescending()
+{
+    sort(incomes.begin(), incomes.end(), [](Incomes a, Incomes b){ return a.getDate() < b.getDate(); });
 }
 

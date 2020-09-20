@@ -20,13 +20,13 @@ string AuxiliaryMethods::getLine()
     return input;
 }
 
-int AuxiliaryMethods::konwersjaStringNaInt(string liczba)
+int AuxiliaryMethods::convertStringToInt(string number)
 {
-    int liczbaInt;
-    istringstream iss(liczba);
-    iss >> liczbaInt;
+    int integerNumber;
+    istringstream iss(number);
+    iss >> integerNumber;
 
-    return liczbaInt;
+    return integerNumber;
 }
 
 string AuxiliaryMethods::pobierzLiczbe(string tekst, int pozycjaZnaku)
@@ -82,6 +82,27 @@ char AuxiliaryMethods::getCharacter()
             break;
         }
         cout << "To nie jest pojedynczy znak. Wpisz ponownie." << endl;
+    }
+    return character;
+}
+
+char AuxiliaryMethods::chooseOptionBeetwenTwoChars()
+{
+    string input = "";
+    char character  = {0};
+
+    while (true)
+    {
+        getline(cin, input);
+
+
+
+        if (input.length() == 1 && (tolower(input[0]) == 't' || tolower(input[0]) == 'n'))
+        {
+            character = input[0];
+            break;
+        }
+        cout << "Wprowadz t lub n" << endl;
     }
     return character;
 }

@@ -31,12 +31,28 @@ bool DateManager::extractDateAndCHeckIfValid(const string& s, int& d, int& m, in
 
 bool DateManager::checkIfDateFormatAndYearAreValid(string date)
 {
-    int  year = stoi(date.substr(0,4));
+    int year = stoi(date.substr(0,4));
+    int actualYear = stoi(getActualDateInStringFormat().substr(0,4));
 
-    if(date.length() <= 11 && year >= 2000)
+    if(date.length() <= 11 && (year >= 2000 && year <= actualYear))
         return true;
     else
         return false;
+}
+
+string DateManager::getDateFromUser()
+{
+    int d, m, y;
+    cout << "Wprowadz date w formacie rrrr-mm-dd (minimalny rok 2000): ";
+    string date = AuxiliaryMethods::getLine();
+
+    while(checkIfDateFormatAndYearAreValid(date) == false || extractDateAndCHeckIfValid(date, d, m, y) == false)
+    {
+        cout << "Wprowadzono niepoprawna date (poprawny format: rrrr-mm-dd)";
+        date = AuxiliaryMethods::getLine();
+    }
+
+    return date;
 }
 
 string DateManager::getActualDateInStringFormat()
@@ -51,22 +67,47 @@ string DateManager::getActualDateInStringFormat()
     return str;
 }
 
+string DateManager::getActualYearAndMonth()
+{
+    string actualYearAndMonth = getActualDateInStringFormat().substr(0, 7);
+    //actualYearAndMonth = actualYearAndMonth.substr(0, 7);                         //0,7 to include '-'
+    actualYearAndMonth = AuxiliaryMethods::removeChar(actualYearAndMonth, '-');
+
+    return actualYearAndMonth;
+}
+string DateManager::getPreviousMonthOfActualYear()
+{
+    string actualYearAndMonth = getActualDateInStringFormat().substr(0, 7);
+    //actualYearAndMonth = actualYearAndMonth.substr(0, 7);
+    actualYearAndMonth = AuxiliaryMethods::removeChar(actualYearAndMonth, '-');
+    int previousMonth = AuxiliaryMethods::convertStringToInt(actualYearAndMonth) - 1;
+    string previousMonthOfActualYear = AuxiliaryMethods::convertIntToString(previousMonth);
+
+    return previousMonthOfActualYear;
+}
+
+string DateManager::convertIntegerDateToYearAndMonthInString(int date)
+{
+    string yearAndMonth = AuxiliaryMethods::convertIntToString(date);
+    yearAndMonth = yearAndMonth.substr(0, 6);
+
+    return yearAndMonth;
+}
+
+
 int DateManager::convertStringDateToIntegerDate(string date)
 {
-    string dateWithoutHyphens;
-    int dateAsInteger;
-
-    dateWithoutHyphens = AuxiliaryMethods::removeChar(date, '-');
-    dateAsInteger = stoi(dateWithoutHyphens);
+    string dateWithoutHyphens = AuxiliaryMethods::removeChar(date, '-'); //remove '-' from date
+    int dateAsInteger = stoi(dateWithoutHyphens);
 
     return dateAsInteger;
 }
 
 string DateManager::convertIntDateToStringWithHyphens(int date)
 {
-    string DateWithHyphens = AuxiliaryMethods::convertIntToString(date);
-    DateWithHyphens.insert(4, "-");
-    DateWithHyphens.insert(7, "-");
+    string dateWithHyphens = AuxiliaryMethods::convertIntToString(date);
+    dateWithHyphens.insert(4, "-");
+    dateWithHyphens.insert(7, "-");
 
-    return DateWithHyphens;
+    return dateWithHyphens;
 }

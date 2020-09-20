@@ -12,6 +12,7 @@ class Incomes
     string item;
     string amount;
 
+
 public:
     void setIncomeId(int newIncomeId);
     void setUserId(int newUserId);

@@ -10,6 +10,7 @@
 #include "IncomesFile.h"
 #include "AuxiliaryMethods.h"
 #include "DateManager.h"
+#include "BalanceManager.h"
 
 using namespace std;
 
@@ -19,11 +20,8 @@ class IncomesManager
     vector <Incomes> incomes;
     IncomesFile incomesFile;
 
-    Incomes setIncomeData(char dateChoice);
-    void displayIncomeData(Incomes income);
     void displayAllIncomes();
-
-
+    void sortIncomesVectorByDateDescending();
 public:
     IncomesManager(string incomesFilename, int loggedUserId)
     : incomesFile(incomesFilename),
@@ -33,6 +31,10 @@ public:
     };
 
     void addIncome();
+    void balanceOfCurrentMonth();
+    void balanceOfPreviousMonth();
+    void balanceOfSelectedPeriod();
+    static void displayIncomeData(Incomes income);
 };
 
 #endif

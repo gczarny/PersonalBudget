@@ -58,12 +58,14 @@ void IncomesFile::writeIncomeToFile(Incomes income)
     xml.AddElem("Income");
     xml.IntoElem();
     xml.AddElem("incomeId", income.getIncomeId());
+    lastIncomeId++;
     xml.AddElem("userId", income.getUserId());
     xml.AddElem("date", DateManager::convertIntDateToStringWithHyphens(income.getDate()));
     xml.AddElem("item", income.getItem());
     xml.AddElem("amount", income.getAmount());
 
     xml.Save(FILENAME_WITH_INCOMES);
+
 }
 
 int IncomesFile::getLastIncomeId()

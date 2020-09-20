@@ -12,7 +12,7 @@ int main()
 {
     char menuChoice;
 
-    PersonalBudget personalBudget("Users.xml", "Incomes.xml"); //"Expenses.xml");
+    PersonalBudget personalBudget("users.xml", "incomes.xml"); //"Expenses.xml");
     personalBudget.displayAllUsers();
     while(true){
         if(personalBudget.isUserLogged() == false)
@@ -65,16 +65,16 @@ int main()
                 personalBudget.addIncome();
                 break;
             case '2':
-                personalBudget.addExpense();
+                //personalBudget.addExpense();
                 break;
             case '3':
-                //personalBudget.displayBalanceOfCurrentMonth();
+                personalBudget.displayBalanceOfCurrentMonth();
                 break;
             case '4':
-                //personalBudget.displayBalanceOfPreviousMonth();
+                personalBudget.displayBalanceOfPreviousMonth();
                 break;
             case '5':
-                //personalBudget.displayBalanceOfSelectedPeriod();
+                personalBudget.displayBalanceOfSelectedPeriod();
                 break;
             case '6':
                 personalBudget.editPassword();
