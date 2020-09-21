@@ -60,25 +60,25 @@ void ExpensesManager::displayAllExpenses()
     system("pause");
 }
 
-int ExpensesManager::displayBalanceAndCalculateSum(string yearAndMonth)
+float ExpensesManager::displayBalanceAndCalculateSum(string yearAndMonth)
 {
-    int expensesSum = 0;
+    float expensesSum = 0;
     for (vector <Expenses>::iterator itr = expenses.begin(); itr != expenses.end(); itr++)
     {
         string yearWithMonthFromIncomes = DateManager::convertIntegerDateToYearAndMonthInString((*itr).getDate());
         if(yearWithMonthFromIncomes == yearAndMonth)
         {
-            expensesSum += AuxiliaryMethods::convertStringToInt((*itr).getAmount());
+            expensesSum += AuxiliaryMethods::convertStringToFloat((*itr).getAmount());
             displayExpenseData(*itr);
         }
     }
     return expensesSum;
 }
 
-int ExpensesManager::expensesBalance(char menuChoice)
+float ExpensesManager::expensesBalance(char menuChoice)
 {
     //system("cls");
-    int expensesSum = 0;
+    float expensesSum = 0;
     if (!expenses.empty())
     {
         sortExpensesVectorByDateDescending();
@@ -108,7 +108,6 @@ int ExpensesManager::expensesBalance(char menuChoice)
                     expensesSum += AuxiliaryMethods::convertStringToInt((*itr).getAmount());
                     displayExpenseData(*itr);
                 }
-
             }
         }
         return expensesSum;

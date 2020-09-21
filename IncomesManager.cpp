@@ -65,25 +65,25 @@ void IncomesManager::displayAllIncomes()
     system("pause");
 }
 
-int IncomesManager::displayBalanceAndCalculateSum(string yearAndMonth)
+float IncomesManager::displayBalanceAndCalculateSum(string yearAndMonth)
 {
-    int incomesSum = 0;
+    float incomesSum = 0;
     for (vector <Incomes>::iterator itr = incomes.begin(); itr != incomes.end(); itr++)
     {
         string yearWithMonthFromIncomes = DateManager::convertIntegerDateToYearAndMonthInString((*itr).getDate());
         if(yearWithMonthFromIncomes == yearAndMonth)
         {
-            incomesSum += AuxiliaryMethods::convertStringToInt((*itr).getAmount());
+            incomesSum += AuxiliaryMethods::convertStringToFloat((*itr).getAmount());
             displayIncomeData(*itr);
         }
     }
     return incomesSum;
 }
 
-int IncomesManager::incomesBalance(char menuChoice)
+float IncomesManager::incomesBalance(char menuChoice)
 {
     system("cls");
-    int incomesSum = 0;
+    float incomesSum = 0;
     if (!incomes.empty())
     {
         sortIncomesVectorByDateDescending();

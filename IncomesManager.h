@@ -19,7 +19,7 @@ class IncomesManager
     vector <Incomes> incomes;
     void displayAllIncomes();
     void sortIncomesVectorByDateDescending();
-    int displayBalanceAndCalculateSum(string yearAndMonth);
+    float displayBalanceAndCalculateSum(string yearAndMonth);
 
 public:
     IncomesManager(string incomesFilename, int loggedUserId)
@@ -30,7 +30,7 @@ public:
     };
 
     void addIncome();
-    int incomesBalance(char menuChoice);
+    float incomesBalance(char menuChoice);
     void displayIncomeData(Incomes income);
 };
 

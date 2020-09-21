@@ -20,7 +20,7 @@ class ExpensesManager
 
     void displayAllExpenses();
     void sortExpensesVectorByDateDescending();
-    int displayBalanceAndCalculateSum(string yearAndMonth);
+    float displayBalanceAndCalculateSum(string yearAndMonth);
 public:
     ExpensesManager(string expensesFilename, int loggedUserId)
     : expensesFile(expensesFilename),
@@ -30,7 +30,7 @@ public:
     };
 
     void addExpense();
-    int expensesBalance(char menuChoice);
+    float expensesBalance(char menuChoice);
     void displayExpenseData(Expenses expense);
 };
 
