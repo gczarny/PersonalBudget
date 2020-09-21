@@ -10,7 +10,8 @@ int main()
 
     PersonalBudget personalBudget("users.xml", "incomes.xml", "expenses.xml");
     //personalBudget.displayAllUsers();
-    while(true){
+    while(true)
+    {
         if(personalBudget.isUserLogged() == false)
         {
             system("cls");

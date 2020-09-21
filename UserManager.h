@@ -30,10 +30,10 @@ public:
     };
 
     void userRegistration();
-    int userLogging();
     void displayAllUsers();
     void editPassword();
     int getLoggedUserId();
+    int userLogging();
     bool isUserLogged();
     void userLogout();
 };

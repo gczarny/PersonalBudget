@@ -77,7 +77,6 @@ float ExpensesManager::displayBalanceAndCalculateSum(string yearAndMonth)
 
 float ExpensesManager::expensesBalance(char menuChoice)
 {
-    //system("cls");
     float expensesSum = 0;
     if (!expenses.empty())
     {

@@ -8,6 +8,12 @@ void Incomes::setIncomeId(int newIncomeId)
     incomeId = newIncomeId;
 }
 
+int Incomes::getIncomeId()
+{
+    return incomeId;
+}
+
+/*
 void Incomes::setUserId(int newUserId)
 {
     userId = newUserId;
@@ -28,10 +34,6 @@ void Incomes::setAmount(string newAmount)
     amount = newAmount;
 }
 
-int Incomes::getIncomeId()
-{
-    return incomeId;
-}
 
 int Incomes::getUserId()
 {
@@ -52,3 +54,4 @@ string Incomes::getAmount()
 {
     return amount;
 }
+*/
