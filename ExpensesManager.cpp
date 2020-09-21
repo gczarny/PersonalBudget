@@ -24,7 +24,7 @@ void ExpensesManager::addExpense()
     cout << "Okresl, czego dotyczy wydatek: ";
     expense.setItem(AuxiliaryMethods::getLine());
     cout << "Okresl wysokosc wydatku: ";
-    expense.setAmount(AuxiliaryMethods::getLine());
+    expense.setAmount(AuxiliaryMethods::replaceCommaWithDot(AuxiliaryMethods::getLine()));
 
     expenses.push_back(expense);
     expensesFile.writeExpenseToFile(expense);
@@ -33,13 +33,11 @@ void ExpensesManager::addExpense()
     system("pause");
 }
 
-
-
 void ExpensesManager::displayExpenseData(Expenses expense)
 {
     cout << endl << "Id wydatku: " << expense.getExpenseId() << endl;
     cout << "Id Uzytkownika:     " << expense.getUserId() << endl;
-    cout << "Data:               " << expense.getDate() << endl;
+    cout << "Data:               " << DateManager::convertIntDateToStringWithHyphens(expense.getDate()) << endl;
     cout << "Opis:               " << expense.getItem() << endl;
     cout << "Kwota:              " << expense.getAmount() << endl;
 }
@@ -118,10 +116,8 @@ int ExpensesManager::expensesBalance(char menuChoice)
     else
     {
         cout << endl << "Brak zapisanych wydatkow" << endl << endl;
-        system("pause");
         return 0;
     }
-    //system("pause");
 }
 
 void ExpensesManager::sortExpensesVectorByDateDescending()

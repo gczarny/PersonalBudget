@@ -2,7 +2,6 @@
 #define EXPENSESFILE_H
 
 #include <iostream>
-#include <fstream>
 #include <cstdlib>
 #include <vector>
 

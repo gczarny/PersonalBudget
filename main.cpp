@@ -1,10 +1,6 @@
 #include <iostream>
+
 #include "PersonalBudget.h"
-#include <vector>
-#include <sstream>
-#include <ctime>
-#include <string>
-#include <stdlib.h>
 
 using namespace std;
 
@@ -13,7 +9,7 @@ int main()
     char menuChoice;
 
     PersonalBudget personalBudget("users.xml", "incomes.xml", "expenses.xml");
-    personalBudget.displayAllUsers();
+    //personalBudget.displayAllUsers();
     while(true){
         if(personalBudget.isUserLogged() == false)
         {
@@ -81,6 +77,10 @@ int main()
                 break;
             case '9':
                 personalBudget.userLogout();
+                break;
+            default:
+                cout << endl << "Nie ma takiej opcji w menu." << endl << endl;
+                system("pause");
                 break;
             }
         }

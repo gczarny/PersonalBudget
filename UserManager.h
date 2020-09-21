@@ -2,9 +2,7 @@
 #define USERMANAGER_H
 
 #include <iostream>
-#include <fstream>
 #include <sstream>
-#include <vector>
 #include <windows.h>
 
 #include "User.h"

@@ -4,15 +4,6 @@
 
 using namespace std;
 
-bool UsersFile::isFileEmpty(fstream &xmlFile)
-{
-    xmlFile.seekg(0, ios::end);
-    if (xmlFile.tellg() == 0)
-        return true;
-    else
-        return false;
-}
-
 void UsersFile::writeUserToFile(User user)
 {
     CMarkup xml;

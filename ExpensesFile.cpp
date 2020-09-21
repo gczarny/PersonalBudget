@@ -9,7 +9,6 @@ vector<Expenses> ExpensesFile::readExpensesOfLoggedUserFromFile(int loggedUserId
     Expenses expense;
     CMarkup xml;
     int date, userId;
-    string dateString;
 
     xml.Load(FILENAME_WITH_EXPENSES);
     xml.FindElem();

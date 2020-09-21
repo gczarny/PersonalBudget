@@ -2,12 +2,10 @@
 #define DATEMANAGER_H
 
 #include <iostream>
-#include <sstream>
 #include <ctime>
 #include <string>
 #include <iomanip>
 #include <stdlib.h>
-#include <algorithm>
 #include "AuxiliaryMethods.h"
 
 using namespace std;
