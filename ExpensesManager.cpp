@@ -62,22 +62,66 @@ void ExpensesManager::displayAllExpenses()
     system("pause");
 }
 
-void ExpensesManager::balanceOfCurrentMonth()
+int ExpensesManager::displayBalanceAndCalculateSum(string yearAndMonth)
 {
-    sortExpensesVectorByDateDescending();
-    BalanceManager::displayCurrentMonthBalance(expenses);
+    int expensesSum = 0;
+    for (vector <Expenses>::iterator itr = expenses.begin(); itr != expenses.end(); itr++)
+    {
+        string yearWithMonthFromIncomes = DateManager::convertIntegerDateToYearAndMonthInString((*itr).getDate());
+        if(yearWithMonthFromIncomes == yearAndMonth)
+        {
+            expensesSum += AuxiliaryMethods::convertStringToInt((*itr).getAmount());
+            displayExpenseData(*itr);
+        }
+    }
+    return expensesSum;
 }
 
-void ExpensesManager::balanceOfPreviousMonth()
+int ExpensesManager::expensesBalance(char menuChoice)
 {
-    sortExpensesVectorByDateDescending();
-    BalanceManager::displayPreviousMonthBalance(expenses);
-}
+    //system("cls");
+    int expensesSum = 0;
+    if (!expenses.empty())
+    {
+        sortExpensesVectorByDateDescending();
+        cout << ">>>>>>> WYDATKI <<<<<<<" << endl;
+        if(menuChoice == '3') //actual month
+        {
+            string actualYearAndMonth = DateManager::getActualYearAndMonth();
+            expensesSum = displayBalanceAndCalculateSum(actualYearAndMonth);
+        }
+        else if(menuChoice == '4') //previous month
+        {
+            string previousMonthOfActualYear = DateManager::getPreviousMonthOfActualYear();
+            expensesSum = displayBalanceAndCalculateSum(previousMonthOfActualYear);
+        }
 
-void ExpensesManager::balanceOfSelectedPeriod()
-{
-    sortExpensesVectorByDateDescending();
-    BalanceManager::displaySelectedPeriodBalance(expenses);
+        else if(menuChoice == '5') //selected period
+        {
+            cout << "Poczatek zakresu wyszukiwania -> ";
+            int firstDate = DateManager::convertStringDateToIntegerDate(DateManager::getDateFromUser());
+            cout << "Koniec zakresu wyszukiwania -> ";
+            int lastDate = DateManager::convertStringDateToIntegerDate(DateManager::getDateFromUser());
+            for (vector <Expenses>::iterator itr = expenses.begin(); itr != expenses.end(); itr++)
+            {
+                int dateFromIncomes = (*itr).getDate();
+                if(dateFromIncomes >= firstDate && dateFromIncomes <= lastDate)
+                {
+                    expensesSum += AuxiliaryMethods::convertStringToInt((*itr).getAmount());
+                    displayExpenseData(*itr);
+                }
+
+            }
+        }
+        return expensesSum;
+    }
+    else
+    {
+        cout << endl << "Brak zapisanych wydatkow" << endl << endl;
+        system("pause");
+        return 0;
+    }
+    //system("pause");
 }
 
 void ExpensesManager::sortExpensesVectorByDateDescending()

@@ -70,18 +70,15 @@ string DateManager::getActualDateInStringFormat()
 string DateManager::getActualYearAndMonth()
 {
     string actualYearAndMonth = getActualDateInStringFormat().substr(0, 7);
-    //actualYearAndMonth = actualYearAndMonth.substr(0, 7);                         //0,7 to include '-'
     actualYearAndMonth = AuxiliaryMethods::removeChar(actualYearAndMonth, '-');
 
     return actualYearAndMonth;
 }
 string DateManager::getPreviousMonthOfActualYear()
 {
-    string actualYearAndMonth = getActualDateInStringFormat().substr(0, 7);
-    //actualYearAndMonth = actualYearAndMonth.substr(0, 7);
-    actualYearAndMonth = AuxiliaryMethods::removeChar(actualYearAndMonth, '-');
-    int previousMonth = AuxiliaryMethods::convertStringToInt(actualYearAndMonth) - 1;
-    string previousMonthOfActualYear = AuxiliaryMethods::convertIntToString(previousMonth);
+    string previousMonthOfActualYear = getActualYearAndMonth();
+    int previousMonth = AuxiliaryMethods::convertStringToInt(previousMonthOfActualYear) - 1;
+    previousMonthOfActualYear = AuxiliaryMethods::convertIntToString(previousMonth);
 
     return previousMonthOfActualYear;
 }

@@ -20,6 +20,12 @@ string AuxiliaryMethods::getLine()
     return input;
 }
 
+string AuxiliaryMethods::replaceCommaWithDot(string line)
+{
+    replace( line.begin(), line.end(), ',', '.'); // replace all ',' to '.'
+    return line;
+}
+
 int AuxiliaryMethods::convertStringToInt(string number)
 {
     int integerNumber;
@@ -29,42 +35,13 @@ int AuxiliaryMethods::convertStringToInt(string number)
     return integerNumber;
 }
 
-string AuxiliaryMethods::pobierzLiczbe(string tekst, int pozycjaZnaku)
+float AuxiliaryMethods::convertStringToFloat(string number)
 {
-    string liczba = "";
-    while(isdigit(tekst[pozycjaZnaku]) == true)
-    {
-        liczba += tekst[pozycjaZnaku];
-        pozycjaZnaku ++;
-    }
-    return liczba;
-}
+    float floatNumber;
+    istringstream iss(number);
+    iss >> floatNumber;
 
-string AuxiliaryMethods::zamienPierwszaLitereNaDuzaAPozostaleNaMale(string tekst)
-{
-    if (!tekst.empty())
-    {
-        transform(tekst.begin(), tekst.end(), tekst.begin(), ::tolower);
-        tekst[0] = toupper(tekst[0]);
-    }
-    return tekst;
-}
-
-int AuxiliaryMethods::wczytajLiczbeCalkowita()
-{
-    string wejscie = "";
-    int liczba = 0;
-
-    while (true)
-    {
-        getline(cin, wejscie);
-
-        stringstream myStream(wejscie);
-        if (myStream >> liczba)
-            break;
-        cout << "To nie jest liczba. Wpisz ponownie. " << endl;
-    }
-    return liczba;
+    return floatNumber;
 }
 
 char AuxiliaryMethods::getCharacter()
@@ -106,26 +83,7 @@ char AuxiliaryMethods::chooseOptionBeetwenTwoChars()
     }
     return character;
 }
-/*
-char AuxiliaryMethods::wybierzOpcjeZMenuEdycja()
-{
-    char wybor;
 
-    cout << endl << "   >>> MENU  EDYCJA <<<" << endl;
-    cout << "---------------------------" << endl;
-    cout << "Ktore dane zaktualizowac: " << endl;
-    cout << "1 - Imie" << endl;
-    cout << "2 - Nazwisko" << endl;
-    cout << "3 - Numer telefonu" << endl;
-    cout << "4 - Email" << endl;
-    cout << "5 - Adres" << endl;
-    cout << "6 - Powrot " << endl;
-    cout << endl << "Twoj wybor: ";
-    wybor = wczytajZnak();
-
-    return wybor;
-}
-*/
 string AuxiliaryMethods::removeChar(string str, char c)
 {
     string result;
@@ -137,3 +95,44 @@ string AuxiliaryMethods::removeChar(string str, char c)
     }
     return result;
 }
+
+/*
+string AuxiliaryMethods::pobierzLiczbe(string tekst, int pozycjaZnaku)
+{
+    string liczba = "";
+    while(isdigit(tekst[pozycjaZnaku]) == true)
+    {
+        liczba += tekst[pozycjaZnaku];
+        pozycjaZnaku ++;
+    }
+    return liczba;
+}
+
+
+string AuxiliaryMethods::zamienPierwszaLitereNaDuzaAPozostaleNaMale(string tekst)
+{
+    if (!tekst.empty())
+    {
+        transform(tekst.begin(), tekst.end(), tekst.begin(), ::tolower);
+        tekst[0] = toupper(tekst[0]);
+    }
+    return tekst;
+}
+
+int AuxiliaryMethods::wczytajLiczbeCalkowita()
+{
+    string wejscie = "";
+    int liczba = 0;
+
+    while (true)
+    {
+        getline(cin, wejscie);
+
+        stringstream myStream(wejscie);
+        if (myStream >> liczba)
+            break;
+        cout << "To nie jest liczba. Wpisz ponownie. " << endl;
+    }
+    return liczba;
+}
+*/

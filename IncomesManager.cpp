@@ -27,7 +27,7 @@ void IncomesManager::addIncome()
     cout << "Okresl, czego dotyczy przychod (np. lokata, wynagrodzenie, etc.): ";
     income.setItem(AuxiliaryMethods::getLine());
     cout << "Okresl wysokosc przychodu: ";
-    income.setAmount(AuxiliaryMethods::getLine());
+    income.setAmount(AuxiliaryMethods::replaceCommaWithDot(AuxiliaryMethods::getLine()));
 
     incomes.push_back(income);
 
@@ -37,15 +37,14 @@ void IncomesManager::addIncome()
     system("pause");
 }
 
-
-
 void IncomesManager::displayIncomeData(Incomes income)
 {
-    cout << endl << "Id:         " << income.getIncomeId() << endl;
-    cout << "Id Uzytkownika:     " << income.getUserId() << endl;
-    cout << "Data:               " << income.getDate() << endl;
-    cout << "Opis:               " << income.getItem() << endl;
-    cout << "Kwota:              " << income.getAmount() << endl;
+    cout << endl;
+    cout << "Id przychodu:        " << income.getIncomeId() << endl;
+    cout << "Id Uzytkownika:      " << income.getUserId() << endl;
+    cout << "Data:                " << DateManager::convertIntDateToStringWithHyphens(income.getDate()) << endl;
+    cout << "Opis:                " << income.getItem() << endl;
+    cout << "Kwota:               " << income.getAmount() << endl;
 }
 
 void IncomesManager::displayAllIncomes()
@@ -66,22 +65,62 @@ void IncomesManager::displayAllIncomes()
     system("pause");
 }
 
-void IncomesManager::balanceOfCurrentMonth()
+int IncomesManager::displayBalanceAndCalculateSum(string yearAndMonth)
 {
-    sortIncomesVectorByDateDescending();
-    BalanceManager::displayCurrentMonthBalance(incomes);
+    int incomesSum = 0;
+    for (vector <Incomes>::iterator itr = incomes.begin(); itr != incomes.end(); itr++)
+    {
+        string yearWithMonthFromIncomes = DateManager::convertIntegerDateToYearAndMonthInString((*itr).getDate());
+        if(yearWithMonthFromIncomes == yearAndMonth)
+        {
+            incomesSum += AuxiliaryMethods::convertStringToInt((*itr).getAmount());
+            displayIncomeData(*itr);
+        }
+    }
+    return incomesSum;
 }
 
-void IncomesManager::balanceOfPreviousMonth()
+int IncomesManager::incomesBalance(char menuChoice)
 {
-    sortIncomesVectorByDateDescending();
-    BalanceManager::displayPreviousMonthBalance(incomes);
-}
-
-void IncomesManager::balanceOfSelectedPeriod()
-{
-    sortIncomesVectorByDateDescending();
-    BalanceManager::displaySelectedPeriodBalance(incomes);
+    system("cls");
+    int incomesSum = 0;
+    if (!incomes.empty())
+    {
+        sortIncomesVectorByDateDescending();
+        cout << ">>>>>>> PRZYCHODY <<<<<<<" << endl;
+        if(menuChoice == '3') //actual month
+        {
+            string actualYearAndMonth = DateManager::getActualYearAndMonth();
+            incomesSum = displayBalanceAndCalculateSum(actualYearAndMonth);
+        }
+        else if(menuChoice == '4') //previous month
+        {
+            string previousMonthOfActualYear = DateManager::getPreviousMonthOfActualYear();
+            incomesSum = displayBalanceAndCalculateSum(previousMonthOfActualYear);
+        }
+        else if(menuChoice == '5') //selected period
+        {
+            cout << "Poczatek zakresu wyszukiwania -> ";
+            int firstDate = DateManager::convertStringDateToIntegerDate(DateManager::getDateFromUser());
+            cout << "Koniec zakresu wyszukiwania -> ";
+            int lastDate = DateManager::convertStringDateToIntegerDate(DateManager::getDateFromUser());
+            for (vector <Incomes>::iterator itr = incomes.begin(); itr != incomes.end(); itr++)
+            {
+                int dateFromIncomes = (*itr).getDate();
+                if(dateFromIncomes >= firstDate && dateFromIncomes <= lastDate)
+                {
+                    incomesSum += AuxiliaryMethods::convertStringToInt((*itr).getAmount());
+                    displayIncomeData(*itr);
+                }
+            }
+        }
+        return incomesSum;
+    }
+    else
+    {
+        cout << endl << "Brak zapisanych przychodow" << endl << endl;
+        return 0;
+    }
 }
 
 void IncomesManager::sortIncomesVectorByDateDescending()

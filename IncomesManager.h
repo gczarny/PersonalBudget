@@ -10,18 +10,18 @@
 #include "IncomesFile.h"
 #include "AuxiliaryMethods.h"
 #include "DateManager.h"
-#include "BalanceManager.h"
 
 using namespace std;
 
 class IncomesManager
 {
     const int LOGGED_USER_ID;
-    vector <Incomes> incomes;
     IncomesFile incomesFile;
-
+    vector <Incomes> incomes;
     void displayAllIncomes();
     void sortIncomesVectorByDateDescending();
+    int displayBalanceAndCalculateSum(string yearAndMonth);
+
 public:
     IncomesManager(string incomesFilename, int loggedUserId)
     : incomesFile(incomesFilename),
@@ -31,10 +31,8 @@ public:
     };
 
     void addIncome();
-    void balanceOfCurrentMonth();
-    void balanceOfPreviousMonth();
-    void balanceOfSelectedPeriod();
-    static void displayIncomeData(Incomes income);
+    int incomesBalance(char menuChoice);
+    void displayIncomeData(Incomes income);
 };
 
 #endif

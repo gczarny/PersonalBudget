@@ -13,11 +13,9 @@ public:
     static string convertIntToString(int number);
     static string getLine();
     static int convertStringToInt(string number);
-    static string pobierzLiczbe(string tekst, int pozycjaZnaku);
-    static string zamienPierwszaLitereNaDuzaAPozostaleNaMale(string tekst);
-    static int wczytajLiczbeCalkowita();
+    static float convertStringToFloat(string number);
     static char getCharacter();
-    static char wybierzOpcjeZMenuEdycja();
+    static string replaceCommaWithDot(string line);
     static string removeChar(string str, char c);
     static char chooseOptionBeetwenTwoChars();
 };

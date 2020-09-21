@@ -3,24 +3,17 @@
 
 #include <iostream>
 #include <sstream>
-#include <ctime>
-#include <string>
-#include <iomanip>
-#include <stdlib.h>
-#include <algorithm>
 
 #include "IncomesManager.h"
+#include "ExpensesManager.h"
 #include "DateManager.h"
 #include "AuxiliaryMethods.h"
 
 using namespace std;
 
-class BalanceManager
+class BalanceManager : private IncomesManager
 {
 public:
-    static void displayCurrentMonthBalance(vector<Incomes> incomes);
-    static void displayPreviousMonthBalance(vector<Incomes> incomes);
-    static void displaySelectedPeriodBalance(vector<Incomes> incomes);
 
 };
 

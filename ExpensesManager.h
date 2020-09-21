@@ -10,7 +10,6 @@
 #include "ExpensesFile.h"
 #include "AuxiliaryMethods.h"
 #include "DateManager.h"
-#include "BalanceManager.h"
 
 using namespace std;
 
@@ -22,6 +21,7 @@ class ExpensesManager
 
     void displayAllExpenses();
     void sortExpensesVectorByDateDescending();
+    int displayBalanceAndCalculateSum(string yearAndMonth);
 public:
     ExpensesManager(string expensesFilename, int loggedUserId)
     : expensesFile(expensesFilename),
@@ -31,10 +31,8 @@ public:
     };
 
     void addExpense();
-    void balanceOfCurrentMonth();
-    void balanceOfPreviousMonth();
-    void balanceOfSelectedPeriod();
-    static void displayExpenseData(Expenses expense);
+    int expensesBalance(char menuChoice);
+    void displayExpenseData(Expenses expense);
 };
 
 #endif
