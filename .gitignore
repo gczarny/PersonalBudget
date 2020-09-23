@@ -6,5 +6,7 @@ incomes.xml
 expenses.xml
 PersonalBudget.*
 !PersonalBudget.cbp
+!PersonalBudget.h
+!PersonalBudget.cpp
 
 
